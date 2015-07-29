@@ -1,0 +1,120 @@
+
+// Extra Large Screens Variables
+$screen-xl:             1700px !default;
+$screen-xl-min:         $screen-xl !default;
+$screen-xl-wide-desktop: $screen-xl-min !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-lg-max: ($screen-xl-min - 1);
+
+//== Container sizes
+// Extra Large screen / Wide desktop
+$container-xl-desktop: (1640px + $grid-gutter-width) !default;
+$container-xl: $container-xl-desktop !default;
+
+
+// Set the container width, and override it for fixed navbars in media queries.
+.container {
+  @media (min-width: $screen-xl-min) {
+    width: $container-xl;
+  }
+}
+
+@mixin make-grid-extra-lg-columns($i: 1, $list: ".col-xl-#{$i}") {
+
+  @for $i from (1 + 1) through $grid-columns {
+    $list: "#{$list}, .col-xl-#{$i}";
+  }
+
+  #{$list} {
+    position: relative;
+    // Prevent columns from collapsing when empty
+    min-height: 1px;
+    // Inner gutter via padding
+    padding-left:  ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+  }
+
+}
+//
+@include make-grid-extra-lg-columns();
+
+@media (min-width: $screen-xl-min) {
+  @include make-grid(xl);
+}
+
+// Generate the xtra large columns mixins
+@mixin make-xl-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-xl-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+
+@mixin make-xl-column-offset($columns) {
+  @media (min-width: $screen-xl-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+
+@mixin make-xl-column-push($columns) {
+  @media (min-width: $screen-xl-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+
+@mixin make-xl-column-pull($columns) {
+  @media (min-width: $screen-xl-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+
+// Responsive Utilities
+
+.visible-xl-block,
+.visible-xl-inline,
+.visible-xl-inline-block,
+.visible-xl{
+  display: none !important;
+}
+
+
+@media (min-width: $screen-xl-min) {
+  .visible-xl {
+    display: block !important;
+  }
+
+  table.visible-xl {
+    display: table !important;
+  }
+
+  tr.visible-xl {
+    display: table-row !important;
+  }
+
+  th.visible-xl, td.visible-xl {
+    display: table-cell !important;
+  }
+
+  .visible-xl-block {
+    display: block !important;
+  }
+
+  .visible-xl-inline {
+    display: inline !important;
+  }
+
+  .visible-xl-inline-block {
+    display: inline-block !important;
+  }
+
+  .hidden-xl {
+    display: none !important;
+  }
+}
